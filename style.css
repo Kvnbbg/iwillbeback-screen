@@ -1,32 +1,119 @@
-html {
-  height: 100%;
-  width: 100%;
-}
 body {
-        background-color: #f5f5f5;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
-.chrono {
-  font-size: 48px;
-  margin-bottom: 20px;
+.box {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  background-color: red;
+  animation-name: onlineAnimation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  transition: all 0.3s ease;
 }
 
-.button {
+.heading-animation {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  animation-name: offlineAnimation;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes onlineAnimation {
+  0% {
+    background-color: blueviolet;
+    transform: scale(0);
+  }
+  100% {
+    background-color: lawngreen;
+    transform: scale(1);
+  }
+}
+
+@keyframes offlineAnimation {
+  0% {
+    background-color: blueviolet;
+  }
+  25% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: blue;
+  }
+  75% {
+    background-color: green;
+  }
+  100% {
+    background-color: red;
+  }
+}
+
+.header,
+.main,
+.content,
+.footer {
+  margin: 20px;
+}
+
+.header,
+.footer {
+  background-color: lightgray;
+  padding: 10px;
+}
+
+.main {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid gray;
+}
+
+.header h1,
+.main h2 {
+  margin: 0;
+}
+
+.header h1 {
+  font-size: 24px;
+}
+
+.main p {
+  margin: 10px 0;
+}
+
+.footer p {
+  font-size: 12px;
+}
+
+#actionButton {
   background-color: #4CAF50;
   color: white;
   padding: 10px 20px;
   font-size: 24px;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1;
 }
 
-.button:hover {
-  background-color: #45a049;
+#actionButton:hover {
+  background-color: darkblue;
 }
-

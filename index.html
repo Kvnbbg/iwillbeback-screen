@@ -6,25 +6,103 @@
   <meta name="viewport" content="width=device-width">
   <title>Chrono Dev Skill Challenge</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 
 <body>
-        <div class="container">
-                <div class="header">
-  <h1>Chrono Dev Skill Challenge</h1>
-                        
-        <h2>Welcome to the Chrono Dev Skill Challenge!</h2></div>
-                <div class="content">
+  <section class="container">
+    <section class="header">
+      <h1>Chrono Dev Skill Challenge</h1>
+
+      <h2>Welcome to the Chrono Dev Skill Challenge!</h2>
+    </section>
+    <section class="main">
+
+      <section class="content">
         <p>The Chrono Dev Skill Challenge is a challenge that aims to develop skills in the areas of HTML, CSS, and JavaScript. Participants will be challenged to build a website that meets the criteria of the challenge.</p>
-                        
-        <p>The challenge will include a weekly challenge, where participants will be able to submit...But, <h3 id="">i will be back in <span id="chrono"></span></h3>
-                </p>
-                </div>        
-                <div class="footer">
-        <p>Copyright © 2023 Kvnbbg - Kevin Marville - Chrono Dev Skill Challenge</p></div>
-                </div>
-        <button id="actionButton" class="Button">Start Countdown</button>
+
+        <p>The challenge will include a weekly challenge, where participants will be able to submit...But, <h3 id="">i have left the screen during <span id="chrono"></span> minutes</h3>
+        </p>
+      </section>
+      <div class="box"></div>
+    </section>
+    <section class="footer">
+      <p>Copyright © 2023 on X Kvnbbg - Kevin Marville - Chrono Dev Skill Challenge</p>
+    </section>
+    <button id="actionButton" class="button">Start Countdown</button>
+  </section>
+
   <script src="script.js"></script>
+  <script>
+    const boxElement = document.querySelector('.box');
+    const actionButtonElement = document.getElementById("actionButton");
+    const chronoElement = document.getElementById('chrono');
+
+    let seconds = 0;
+    let timer;
+    let isWorking = false;
+
+    function startChronometer() {
+      if (isWorking) return;
+      stopChronometer();
+      isWorking = true;
+      boxElement.style.backgroundColor = "blueviolet";
+      boxElement.style.width = "0%";
+      boxElement.style.height = "0%";
+      timer = setInterval(() => {
+        seconds++;
+        chronoElement.textContent = formatTime(seconds);
+        if (seconds >= 240) {
+          stopChronometer();
+          boxElement.style.backgroundColor = "lawngreen";
+          boxElement.style.width = "100%";
+          boxElement.style.height = "100%";
+        }
+      }, 1000);
+    }
+
+    function stopChronometer() {
+      clearInterval(timer);
+      isWorking = false;
+    }
+
+    function resetChronometer() {
+      seconds = 0;
+      chronoElement.textContent = formatTime(seconds);
+      boxElement.style.backgroundColor = "red";
+      boxElement.style.width = "100%";
+      boxElement.style.height = "100%";
+    }
+
+    function formatTime(seconds) {
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = seconds % 60;
+      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+
+    actionButtonElement.addEventListener('click', function() {
+      if (actionButtonElement.textContent === 'Start Countdown') {
+        startChronometer();
+        actionButtonElement.textContent = 'Stop Countdown';
+      } else {
+        stopChronometer();
+        actionButtonElement.textContent = 'Start Countdown';
+        resetChronometer();
+      }
+    });
+
+    window.addEventListener('offline', function() {
+      stopChronometer();
+      actionButtonElement.disabled = true;
+    });
+
+    window.addEventListener('online', function() {
+      actionButtonElement.disabled = false;
+    });
+
+    // Initial setup
+    chronoElement.textContent = formatTime(seconds);
+  </script>
 </body>
 
 </html>
