@@ -25,6 +25,11 @@ body {
   animation-direction: alternate;
   animation-timing-function: linear;
   transition: all 0.3s ease;
+  cursor: drag;
+  z-index: 1;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
 }
 .box::before,
 .box::after {
@@ -45,11 +50,31 @@ body {
   top: 20px;
   right: 10px;
 }
-
+.box:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  background-color: darkolivegreen;
+  animation-name: offlineAnimation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  transition: all 0.3s ease;
+  cursor: grab;
+  border-radius: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  display: flex;
+}
+.heading {
+  font-size: 36px;
+  margin-top: 50px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 .heading-animation {
-  width: 160px;
-  height: 160px;
-  margin: auto;
+  width: 200px;
+  height: 200px;
+  margin: 10% auto;
   border: 3% solid;
   border-radius: 50%;
   background-color: red;
@@ -61,7 +86,7 @@ body {
 
 .heading-animation::active {
   animation-name: onlineAnimation;
-  animation-duration: 4s;
+  animation-duration: 10s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
   animation-timing-function: linear;

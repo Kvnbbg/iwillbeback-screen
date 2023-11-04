@@ -11,28 +11,12 @@ const boxElement = document.querySelector('.box');
       stopChronometer();
       isWorking = true;
       boxElement.style.backgroundColor = "blueviolet";
-      boxElement.style.width = "1%";
+      boxElement.style.width = "50%";
       boxElement.style.height = "50%";
       timer = setInterval(() => {
 	seconds++;
 	chronoElement.textContent = formatTime(seconds);
 
-	if (seconds <= 240) {
-
-	  boxElement.classList.add('heading-animation');
-	  boxElement.style.backgroundColor = "lawngreen";
-	  boxElement.style.width = "25%";
-	  boxElement.style.height = "25%";
-	}
-	if (seconds >= 300) {
-	  boxElement.classList.remove('heading-animation');
-	  boxElement.style.backgroundColor = "red";
-	  boxElement.style.width = "10%";
-	  boxElement.style.height = "10%";
-	  clearInterval(timer);
-	  isWorking = false;
-	  actionButtonElement.textContent = "Start Countdown";
-	}
 
       }, 1000);
     }
