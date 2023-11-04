@@ -15,8 +15,8 @@ body {
 }
 
 .box {
-  width: 100px;
-  height: 100px;
+  width: 60px;
+  height: 60px;
   position: absolute;
   background-color: red;
   animation-name: onlineAnimation;
@@ -26,14 +26,57 @@ body {
   animation-timing-function: linear;
   transition: all 0.3s ease;
 }
+.box::before,
+.box::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: black;
+  border-radius: 50%;
+}
+
+.box::before {
+  top: 20px;
+  left: 10px;
+}
+
+.box::after {
+  top: 20px;
+  right: 10px;
+}
 
 .heading-animation {
-  width: 100px;
-  height: 100px;
+  width: 160px;
+  height: 160px;
+  margin: auto;
+  border: 3% solid;
+  border-radius: 50%;
   background-color: red;
   animation-name: offlineAnimation;
-  animation-duration: 5s;
+  animation-duration: 10s;
   animation-iteration-count: infinite;
+  z-index: 2;
+}
+
+.heading-animation::active {
+  animation-name: onlineAnimation;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+  transition: all 0.3s ease;
+  background-color: #f5f5f5;
+  border: 3% solid;
+  border-radius: 50%;
+  z-index: 2;
+  box-shadow: 0px 0px 5px 5px #f5f5f5;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: absolute;
+  top: -10%;
+  left: -10%;
 }
 
 @keyframes onlineAnimation {
@@ -76,6 +119,13 @@ body {
 .footer {
   background-color: lightgray;
   padding: 10px;
+  margin: 10%, auto;
+  z-index: 1;
+}
+
+footer::active {
+  actionButtonElement.addEventListener("click", startChronometer);
+  position: absolute;
 }
 
 .main {

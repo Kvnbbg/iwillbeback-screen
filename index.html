@@ -1,108 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Chrono Dev Skill Challenge</title>
+  <title>Pause Screen</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
 </head>
 
 <body>
-  <section class="container">
-    <section class="header">
-      <h1>Chrono Dev Skill Challenge</h1>
-
-      <h2>Welcome to the Chrono Dev Skill Challenge!</h2>
-    </section>
-    <section class="main">
-
-      <section class="content">
-        <p>The Chrono Dev Skill Challenge is a challenge that aims to develop skills in the areas of HTML, CSS, and JavaScript. Participants will be challenged to build a website that meets the criteria of the challenge.</p>
-
-        <p>The challenge will include a weekly challenge, where participants will be able to submit...But, <h3 id="">i have left the screen during <span id="chrono"></span> minutes</h3>
-        </p>
-      </section>
+  <div class="container">
+    <header class="header">
+      <h1>I WILL BE BACK SOON</h1>
+    </header>
+    <main class="main">
+      <div class="content">
+        <p>This is a pause screen. It indicates that the user is temporarily away and will be back soon.</p>
+        <p>The pause screen can be used to take a break from the current activity and resume it at a later time. During this pause, the user can perform other tasks or simply take a rest.</p>
+        <h3>I have left the screen for <span id="chrono"></span> minutes</h3>
+      </div>
       <div class="box"></div>
-    </section>
-    <section class="footer">
-      <p>Copyright © 2023 on X Kvnbbg - Kevin Marville - Chrono Dev Skill Challenge</p>
-    </section>
+    </main>
+    <footer class="footer">
+      <p>© 2023 on X Kvnbbg - Kevin Marville - Pause Screen</p>
+    </footer>
     <button id="actionButton" class="button">Start Countdown</button>
-  </section>
+  </div>
 
   <script src="script.js"></script>
-  <script>
-    const boxElement = document.querySelector('.box');
-    const actionButtonElement = document.getElementById("actionButton");
-    const chronoElement = document.getElementById('chrono');
-
-    let seconds = 0;
-    let timer;
-    let isWorking = false;
-
-    function startChronometer() {
-      if (isWorking) return;
-      stopChronometer();
-      isWorking = true;
-      boxElement.style.backgroundColor = "blueviolet";
-      boxElement.style.width = "0%";
-      boxElement.style.height = "0%";
-      timer = setInterval(() => {
-        seconds++;
-        chronoElement.textContent = formatTime(seconds);
-        if (seconds >= 240) {
-          stopChronometer();
-          boxElement.style.backgroundColor = "lawngreen";
-          boxElement.style.width = "100%";
-          boxElement.style.height = "100%";
-        }
-      }, 1000);
-    }
-
-    function stopChronometer() {
-      clearInterval(timer);
-      isWorking = false;
-    }
-
-    function resetChronometer() {
-      seconds = 0;
-      chronoElement.textContent = formatTime(seconds);
-      boxElement.style.backgroundColor = "red";
-      boxElement.style.width = "100%";
-      boxElement.style.height = "100%";
-    }
-
-    function formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-
-    actionButtonElement.addEventListener('click', function() {
-      if (actionButtonElement.textContent === 'Start Countdown') {
-        startChronometer();
-        actionButtonElement.textContent = 'Stop Countdown';
-      } else {
-        stopChronometer();
-        actionButtonElement.textContent = 'Start Countdown';
-        resetChronometer();
-      }
-    });
-
-    window.addEventListener('offline', function() {
-      stopChronometer();
-      actionButtonElement.disabled = true;
-    });
-
-    window.addEventListener('online', function() {
-      actionButtonElement.disabled = false;
-    });
-
-    // Initial setup
-    chronoElement.textContent = formatTime(seconds);
-  </script>
 </body>
 
 </html>
