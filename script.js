@@ -2,6 +2,11 @@ const boxElement = document.querySelector('.box');
 const actionButtonElement = document.getElementById("actionButton");
 const chronoElement = document.getElementById('chrono');
 const subButtonElement = document.getElementById("subButton");
+const testCases = {
+	'test 1': {
+		'name': 'button work'
+		,'description': 'the start countdown button work'
+}}
 
 // init timer
 let seconds = 0;
@@ -18,6 +23,7 @@ function updateChrono() {
 function startChronometer() {
 	if (isWorking) return;
 	isWorking = true;
+	console.log(testCases['test 1']['name']['description']);
 	timer = setInterval(() => {
 		seconds++;
 		updateChrono();
