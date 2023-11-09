@@ -1,64 +1,121 @@
 const boxElement = document.querySelector('.box');
-    const actionButtonElement = document.getElementById("actionButton");
-    const chronoElement = document.getElementById('chrono');
+const actionButtonElement = document.getElementById("actionButton");
+const chronoElement = document.getElementById('chrono');
+const subButtonElement = document.getElementById("subButton");
 
-    let seconds = 0;
-    let timer;
-    let isWorking = false;
+// init timer
+let seconds = 0;
+let timer;
+let isWorking = false;
+let subButton = false;
 
-    function startChronometer() {
-      if (isWorking) return;
-      stopChronometer();
-      isWorking = true;
-      boxElement.style.backgroundColor = "blueviolet";
-      boxElement.style.width = "50%";
-      boxElement.style.height = "50%";
-      timer = setInterval(() => {
-	seconds++;
+// Updates the chronoElement text content based on the seconds elapsed
+function updateChrono() {
+	chronoElement.textContent = Math.floor(seconds/60);
+					      }
+	
+// Starts the chronometer
+function startChronometer() {
+	if (isWorking) return;
+	isWorking = true;
+	timer = setInterval(() => {
+		seconds++;
+		updateChrono();
+	}, 1000); // Run this every second
+}
+// Stops the chronometer
+function stopChronometer() {
+	clearInterval(timer);
+	isWorking = false;
+	boxElement.style.backgroundColor = "blueviolet";
+	boxElement.style.width = "50%";
+	boxElement.style.height = "50%";
+}
+// Listener for the 'Start Countdown' button
+actionButtonElement.addEventListener('click', function(){
+	if (isWorking) {
+		stopChronometer();
+		this.textContent = "Start Countdown"; // To change button text accordingly
+	} else {
+		startChronometer();
+		this.textContent = "Stop Countdown"; // To change button text accordingly
+	}
+});
+function resetChronometer() {
+	seconds = 0;
 	chronoElement.textContent = formatTime(seconds);
+	boxElement.style.width = "50%";
+	boxElement.style.height = "50%";
+	boxElement.style.backgroundColor = "transparent";
+}
+
+function formatTime(seconds) {
+	const minutes = Math.floor(seconds / 60);
+	const remainingSeconds = seconds % 60;
+	return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+}
 
 
-      }, 1000);
-    }
- actionButtonElement.addEventListener("click", startChronometer);
-    function stopChronometer() {
-      clearInterval(timer);
-      isWorking = false;
-    }
+// Sub zone
+function handleSubscriptionClick() {
+   const enteredEmail = prompt("Enter your email, subscriber.");
 
-    function resetChronometer() {
-      seconds = 0;
-      chronoElement.textContent = formatTime(seconds);
-      boxElement.style.backgroundColor = "red";
-      boxElement.style.width = "50%";
-      boxElement.style.height = "50%";
-    }
+   if (enteredEmail) {
+       alert("Thank you for subscribing!");
+   } else {
+       alert("You have to enter an email.");
+   }
+}
 
-    function formatTime(seconds) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
+subButtonElement.addEventListener('click', handleSubscriptionClick);
 
-    actionButtonElement.addEventListener('click', function() {
-      if (actionButtonElement.textContent === 'Start Countdown') {
-	startChronometer();
-	actionButtonElement.textContent = 'Stop Countdown';
-      } else {
+
+// animation
+actionButtonElement.addEventListener('click', function() {
+	if (actionButtonElement.textContent === 'Start Countdown') {
+		startChronometer();
+		actionButtonElement.textContent = 'Stop Countdown';
+	} else {
+		stopChronometer();
+		actionButtonElement.textContent = 'Start Countdown';
+		resetChronometer();
+	}
+});
+
+window.addEventListener('offline', function() {
 	stopChronometer();
-	actionButtonElement.textContent = 'Start Countdown';
-	resetChronometer();
-      }
-    });
+	actionButtonElement.disabled = true;
+});
+window.addEventListener('online', function() {
+	actionButtonElement.disabled = false;
+});
 
-    window.addEventListener('offline', function() {
-      stopChronometer();
-      actionButtonElement.disabled = true;
-    });
+// Initial setup
+chronoElement.textContent = formatTime(seconds);
 
-    window.addEventListener('online', function() {
-      actionButtonElement.disabled = false;
-    });
+// Enable drag and drop
+boxElement.setAttribute('draggable', 'true');
+let dragObj = null;
 
-    // Initial setup
-    chronoElement.textContent = formatTime(seconds);
+boxElement.addEventListener('dragstart', function(e) {
+  dragObj = this;
+  e.dataTransfer.setData('text/plain', this.id);
+});
+
+document.body.addEventListener('dragover', function(e) {
+  e.preventDefault();
+});
+
+document.body.addEventListener('drop', function(e) {
+  e.preventDefault();
+  const target = e.target;
+  const bounding = target.getBoundingClientRect();
+  let offsetX = e.clientX - bounding.x;
+  let offsetY = e.clientY - bounding.y;
+
+  dragObj.style.position = 'fixed';
+  dragObj.style.left = `${offsetX}px`;
+  dragObj.style.top = `${offsetY}px`;
+
+  dragObj = null;
+});

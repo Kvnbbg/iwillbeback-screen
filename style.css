@@ -1,30 +1,26 @@
-
 :root {
   --animation-duration: 4s;
   --transition-duration: 0.3s;
-  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  --box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
   --box-width-height: 60px;
 }
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 16px;
-  width: 100%;
   margin: 0 auto;
+  viewport: 100vh;
 }
 
 body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
   background-color: #f5f5f5;
-  width: 960px;
-  margin: 5% auto;
-  padding: 5% auto;
   display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-
-  grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  gap: 0px 0px;
+  gap: 0px;
   grid-template-areas:
     "header"
     "main"
@@ -38,13 +34,19 @@ body {
   align-items: center;
   justify-content: center;
   height: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
 }
 
 .box {
   width: var(--box-width-height);
   height: var(--box-width-height);
   position: absolute;
-  background-color: red;
+  background-color: darkolivegreen;
   padding-top: 2%;
   animation-name: onlineAnimation;
   animation-duration: var(--animation-duration);
@@ -57,13 +59,13 @@ body {
   border-radius: 5px;
   box-shadow: var(--box-shadow);
   display: flex;
+  opacity: 0.9;
 }
 
 /* Rest of the code */}
 .box::before,
 .box::after {
   content: "";
-  position: absolute;
   width: 100px;
   height: 20px;
   background-color: black;
@@ -73,11 +75,13 @@ body {
 .box::before {
   top: 20px;
   left: 10px;
+  border-radius: 50%;
 }
 
 .box::after {
   top: 20px;
   right: 10px;
+  border-radius: 50%;
 }
 
 .heading {
@@ -122,7 +126,7 @@ body {
   animation-direction: alternate;
   animation-timing-function: linear;
   transition: all 0.3s ease;
-  background-color: #f5f5f5;
+background-color: transparent;
   border: 3% solid;
   border-radius: 50%;
   z-index: 2;
@@ -151,16 +155,16 @@ body {
     background-color: blueviolet;
   }
   25% {
-    background-color: yellow;
+    background-color: lightseagreen;
   }
   50% {
-    background-color: blue;
+    background-color: darkblue;
   }
   75% {
     background-color: green;
   }
   100% {
-    background-color: red;
+    background-color: greenyellow;
   }
 }
 
@@ -188,6 +192,9 @@ footer::active {
   background-color: white;
   padding: 20px;
   border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 .header h1,
@@ -202,11 +209,47 @@ footer::active {
 .main p {
   margin: 10px 0;
 }
-
+.footer {
+  background-color: lightgray;
+  padding: 20px 0;
+  margin: 10%, auto;
+  z-index: 1;
+  text-align: center;
+  font-size: 12px;
+}
 .footer p {
   font-size: 12px;
 }
 
+button {
+  font-family: inherit;
+  background: #007aff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+  margin: 10px 0;
+}
+button:hover {
+  background-color: #005ecb;
+  transition: background-color 0.4s ease;
+}
+button:active {
+  transform: scale(1.1);
+}
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+button:focus {
+  box-shadow: 0px 0px 5px 5px #f5f5f5;
+}
+button.button {
+  font-size: 16px;
+  font-weight: bold;
+}
 #actionButton {
   background-color: #4CAF50;
   color: white;
@@ -222,4 +265,21 @@ footer::active {
 
 #actionButton:hover {
   background-color: darkblue;
+}
+input[type="email"]{
+  font-family: inherit;
+  width: 300px;
+  height: 35px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px 0;
+}
+.box {
+  background-color: #eee;
+  border-radius: 8px;
+  width: 50%;
+  height: 50%;
+  transition: background-color 0.3s ease;
 }
