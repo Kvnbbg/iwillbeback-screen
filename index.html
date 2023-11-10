@@ -10,46 +10,59 @@
 </head>
 
 <body>
-  <div class="container">
-    <header class="heading-animation">
-      <h5 class="heading">
-        <div class="box" draggable="true"></div>
-        <span class="heading-letter">I</span>
-        
-        <span class="heading-letter"></span>
-        <span class="heading-letter">W</span>
-        <span class="heading-letter">I</span>
-        <span class="heading-letter">L</span>
-        <span class="heading-letter">L</span>
-        <br>
-        <span class="heading-letter">B</span>
-        <span class="heading-letter">E</span>
-        <br>
-        <span class="heading-letter">B</span>
-        <span class="heading-letter">A</span>  
-        <span class="heading-letter">C</span>
-        <span class="heading-letter">K</span>
-      </h5>
-
-
-    </header>
+  
+  <div class="heading-animation">
+    <h5 class="heading">
+      <div class="box" draggable="true"></div>
+      <span class="heading-letter">I</span>
+      <span class="heading-letter"></span>
+      <span class="heading-letter">W</span>
+      <span class="heading-letter">I</span>
+      <span class="heading-letter">L</span>
+      <span class="heading-letter">L</span>
+      <br>
+      <span class="heading-letter">B</span>
+      <span class="heading-letter">E</span>
+      <br>
+      <span class="heading-letter">B</span>
+      <span class="heading-letter">A</span>  
+      <span class="heading-letter">C</span>
+      <span class="heading-letter">K</span>
+      <br>
+      <button id="darken" class="button" >Darken</button>
+      <button id="lighten" class="button" >Lighten</button>
+      <button id="here" class="button" >I'm here</button>
+      <button id="back" class="button" >Back</button>
+    </h5>
+  </div>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="newsletter.html">Newsletter</a></li>
+      <li><a href="resume.html">Resume</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="links.html">Links</a></li>
+    </ul>
+  </nav>
+ 
     <main class="main">
       <div class="content">
-        <p>This is a pause screen. It indicates that the user is temporarily away and will be back soon.</p>
-        <p>The pause screen can be used to take a break from the current activity and resume it at a later time. </p><br>
+        <p>This is the pause screen. It indicates that the user is temporarily away and will be back soon.</p>
+        <p>it's can be used to take a break from the current activity and resume it at a later time. </p><br>
          <p> During this pause, the user can perform other tasks or simply take a rest.</p>
-        <h3>I have left the screen for <span id="chrono"></span> minutes</h3>
-        <br>
-<input name="subscribers" id="emailInput" autocomplete="on" type="email" placeholder="Your email address is required" required>
-        <button id="subButton" type="submit">Subscribe</button>
+        <h3>He have left the screen since <span id="chrono"></span> minutes</h3>
+        <br> 
+        <button id="actionButton" class="button">Start Countdown</button>
+        
       </div>
-
     </main>
     <footer class="footer">
-      <p>© 2023 on X Kvnbbg - Kevin Marville - Pause Screen</p>
+      <p>Copyright 2023 © Kvnbbg - Kevin Marville - Portfolio & Pause Screen</p>
     </footer>
-    <button id="actionButton" class="button">Start Countdown</button>
-  </div>
+
 
   <script src="script.js"></script>
 </body>

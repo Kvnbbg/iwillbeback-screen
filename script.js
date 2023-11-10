@@ -1,127 +1,134 @@
+// Optimized and improved code based on the task provided
+
+// GET ELEMENTS
 const boxElement = document.querySelector('.box');
 const actionButtonElement = document.getElementById("actionButton");
 const chronoElement = document.getElementById('chrono');
 const subButtonElement = document.getElementById("subButton");
 const testCases = {
-	'test 1': {
-		'name': 'button work'
-		,'description': 'the start countdown button work'
-}}
+    'test 1': {
+        'name': 'button work',
+        'description': 'the start countdown button work',
+    }
+}
 
-// init timer
+// Get the elements
+const darkenButton = document.getElementById('darken');
+const lightenButton = document.getElementById('lighten');
+const hereButton = document.getElementById('here');
+const backButton = document.getElementById('back');
+const headingLetters = document.querySelectorAll('.heading-letter');
+
+// EVENT LISTENERS
+
+// Darken and lighten screen
+darkenButton.addEventListener('click', () => document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.7)');
+lightenButton.addEventListener('click', () => document.body.style.backgroundColor = 'rgba(255, 255, 255, 1)');
+
+// Change heading text
+hereButton.addEventListener('click', () => updateHeadingText(['I', '\'', 'M', ' ', 'H', 'E', 'R', 'E']));
+backButton.addEventListener('click', () => updateHeadingText(['I', '', 'W', 'I', 'L', 'L', '', 'B', 'E', '', 'B', 'A', 'C', 'K']));
+
+// Timer functionality
 let seconds = 0;
 let timer;
 let isWorking = false;
-let subButton = false;
 
-// Updates the chronoElement text content based on the seconds elapsed
-function updateChrono() {
-	chronoElement.textContent = Math.floor(seconds/60);
-					      }
-	
-// Starts the chronometer
+// Update heading letters
+function updateHeadingText(letters) {
+    headingLetters.forEach((letter, index) => letter.textContent = letters[index] || '');
+}
+
+// Timer related functions
 function startChronometer() {
-	if (isWorking) return;
-	isWorking = true;
-	console.log(testCases['test 1']['name']['description']);
-	timer = setInterval(() => {
-		seconds++;
-		updateChrono();
-	}, 1000); // Run this every second
+    if(isWorking) return;
+    isWorking = true;
+    console.log(testCases['test 1'].description); // Output test case description
+    timer = setInterval(() => {
+        seconds++;
+        chronoElement.textContent = formatTime(seconds);
+    }, 1000);
 }
-// Stops the chronometer
+
 function stopChronometer() {
-	clearInterval(timer);
-	isWorking = false;
-	boxElement.style.backgroundColor = "blueviolet";
-	boxElement.style.width = "50%";
-	boxElement.style.height = "50%";
+    clearInterval(timer);
+    isWorking = false;
 }
-// Listener for the 'Start Countdown' button
-actionButtonElement.addEventListener('click', function(){
-	if (isWorking) {
-		stopChronometer();
-		this.textContent = "Start Countdown"; // To change button text accordingly
-	} else {
-		startChronometer();
-		this.textContent = "Stop Countdown"; // To change button text accordingly
-	}
-});
+
 function resetChronometer() {
-	seconds = 0;
-	chronoElement.textContent = formatTime(seconds);
-	boxElement.style.width = "50%";
-	boxElement.style.height = "50%";
-	boxElement.style.backgroundColor = "transparent";
+    stopChronometer();
+    seconds = 0;
+    chronoElement.textContent = formatTime(seconds);
+    boxElement.style.width = "50%";
+    boxElement.style.height = "50%";
+    boxElement.style.backgroundColor = "transparent";
 }
 
 function formatTime(seconds) {
-	const minutes = Math.floor(seconds / 60);
-	const remainingSeconds = seconds % 60;
-	return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
 
+// Start/Stop button
+actionButtonElement.addEventListener('click', () => {
+    if (!isWorking) startChronometer();
+    else resetChronometer();
+    actionButtonElement.textContent = isWorking ? "Stop Countdown" : "Start Countdown";
+});
 
-// Sub zone
-function handleSubscriptionClick() {
-   const enteredEmail = prompt("Enter your email, subscriber.");
-
-   if (enteredEmail) {
-       alert("Thank you for subscribing!");
-   } else {
-       alert("You have to enter an email.");
-   }
-}
-
+// Subscription button
 subButtonElement.addEventListener('click', handleSubscriptionClick);
 
-
-// animation
-actionButtonElement.addEventListener('click', function() {
-	if (actionButtonElement.textContent === 'Start Countdown') {
-		startChronometer();
-		actionButtonElement.textContent = 'Stop Countdown';
-	} else {
-		stopChronometer();
-		actionButtonElement.textContent = 'Start Countdown';
-		resetChronometer();
-	}
+// Handle network status changes
+window.addEventListener('offline', () => {
+    stopChronometer();
+    actionButtonElement.disabled = true;
+});
+window.addEventListener('online', () => {
+    actionButtonElement.disabled = false;
 });
 
-window.addEventListener('offline', function() {
-	stopChronometer();
-	actionButtonElement.disabled = true;
-});
-window.addEventListener('online', function() {
-	actionButtonElement.disabled = false;
-});
-
-// Initial setup
+// Initialize the chronoElement
 chronoElement.textContent = formatTime(seconds);
 
-// Enable drag and drop
-boxElement.setAttribute('draggable', 'true');
-let dragObj = null;
+// Drag and drop functionality
+boxElement.addEventListener('dragstart', handleDragStart);
+document.body.addEventListener('dragover', handleDragOver);
+document.body.addEventListener('drop', handleDrop);
 
-boxElement.addEventListener('dragstart', function(e) {
-  dragObj = this;
-  e.dataTransfer.setData('text/plain', this.id);
-});
+function handleDragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
 
-document.body.addEventListener('dragover', function(e) {
-  e.preventDefault();
-});
+function handleDragOver(e) {
+    e.preventDefault();
+}
 
-document.body.addEventListener('drop', function(e) {
-  e.preventDefault();
-  const target = e.target;
-  const bounding = target.getBoundingClientRect();
-  let offsetX = e.clientX - bounding.x;
-  let offsetY = e.clientY - bounding.y;
+function handleDrop(e) {
+    e.preventDefault();
+    const offsetX = e.clientX - e.target.getBoundingClientRect().left;
+    const offsetY = e.clientY - e.target.getBoundingClientRect().top;
 
-  dragObj.style.position = 'fixed';
-  dragObj.style.left = `${offsetX}px`;
-  dragObj.style.top = `${offsetY}px`;
+    if(e.target === boxElement || boxElement.contains(e.target)) {
+        boxElement.style.position = 'absolute';
+        boxElement.style.left = `${e.clientX - offsetX}px`;
+        boxElement.style.top = `${e.clientY - offsetY}px`;
+    }
+}
 
-  dragObj = null;
-});
+// Email validation and subscription mechanism
+function handleSubscriptionClick() {
+    const enteredEmail = prompt("Enter your email to subscribe:");
+    if (enteredEmail && validateEmail(enteredEmail)) {
+        alert("Thank you for subscribing!");
+        // Subscription logic would go here (e.g., AJAX request to server)
+    } else {
+        alert("Please enter a valid email.");
+    }
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email.toLowerCase());
+}
