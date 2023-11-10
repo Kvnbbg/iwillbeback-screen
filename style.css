@@ -58,13 +58,15 @@ img {
 }
 
 .heading-letter:hover {
-  transform: scale(1.4);
   animation-name: offlineAnimation;
-  animation-duration: 10s;
+  animation-duration: 7s;
   animation-iteration-count: infinite;
-  border-radius: 50%;
+  border-radius: 35%;
+  transform: rotate(360deg);
+  box-shadow: var(--box-shadow);
+  width: var(--box-width-height);
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
-  padding:3%;
+
 }
 
 .heading-animation {
@@ -138,9 +140,22 @@ footer {
   padding: 10px 0;
   text-align: center;
   font-size: 0.75em;
-  position: absolute;
+  position: stiky; /* Changed from fixed to sticky */
   bottom: 0;
   width: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Added background color */
+}
+
+/* Added styles for a generic link within the footer */
+footer a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Added hover effect for a link within the footer */
+footer a:hover {
+  text-decoration: underline;
 }
 
 ul {
